@@ -1,0 +1,134 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Lite Button for WooCommerce\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-05 23:21+0000\n"
+"PO-Revision-Date: 2026-02-05 23:56+0000\n"
+"Last-Translator: Raúl Martiarena Valdivia\n"
+"Language-Team: Español\n"
+"Language: es-ES\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.8.1; wp-6.9.1; php-8.3.30\n"
+"X-Domain: lite-contact-button-for-woocommerce"
+
+#: modules/wc-single-button.php:51 admin/settings-page.php:66
+#: admin/settings-page.php:66
+msgid "Ask via WhatsApp"
+msgstr "Pregunta vía Whatsapp"
+
+#: admin/settings-page.php:110
+msgid "Bottom Left"
+msgstr "Abajo a la Izquierda"
+
+#: admin/settings-page.php:116
+msgid "Bottom offset (%)"
+msgstr "Desplazamiento inferior (%)"
+
+#: admin/settings-page.php:104
+msgid "Bottom Right"
+msgstr "Abajo a la Derecha"
+
+#: admin/settings-page.php:65
+msgid "Button Text"
+msgstr "Texto del Botón"
+
+#: admin/settings-page.php:62 admin/settings-page.php:94
+msgid "Default message"
+msgstr "Mensaje predeterminado"
+
+#: admin/settings-page.php:128
+msgid "Distance from bottom in percentage (recommended: 3–10)"
+msgstr "Distancia desde el fondo en porcentaje (recomendado: 3–10)"
+
+#: admin/settings-page.php:58 admin/settings-page.php:88
+msgid "e.g. 51999999999"
+msgstr "e.j. 51999999999"
+
+#: admin/settings-page.php:134
+msgid "Enable Floating Button"
+msgstr "Habilitar Botón Flotante"
+
+#: admin/settings-page.php:74
+msgid "Enable WooCommerce single product button"
+msgstr "Habilitar el botón para Producto de WooCommerce"
+
+#: admin/settings-page.php:81
+msgid "Floating Button"
+msgstr "Botón flotante"
+
+#: modules/wc-single-button.php:50
+msgid "Hello, I am interested in this product:"
+msgstr "Hola estoy interesado en este producto:"
+
+#. URI of the plugin
+#. Author URI of the plugin
+msgid "https://raulmartiarena.com"
+msgstr "https://raulmartiarena.com"
+
+#: admin/settings-page.php:53
+#, php-format
+msgid ""
+"If your product template is built with Elementor, use this shortcode: %s"
+msgstr ""
+"Si su plantilla de producto está creada con Elementor, use este código corto:"
+" %s"
+
+#. Description of the plugin
+msgid ""
+"Lightweight WhatsApp buttons for WooCommerce products and WordPress pages. "
+"Modular, fast, and without unnecessary code."
+msgstr ""
+"Botones ligeros de WhatsApp para productos de WooCommerce y páginas de "
+"WordPress. Modulares, rápidos y sin código innecesario."
+
+#: admin/settings-page.php:61 admin/settings-page.php:92
+msgid "Message"
+msgstr "Mensaje"
+
+#: admin/settings-page.php:98
+msgid "Position"
+msgstr "Posición"
+
+#. Author of the plugin
+msgid "Raúl Martiarena"
+msgstr "Raúl Martiarena"
+
+#: admin/settings-page.php:70
+msgid "Require selecting product variations before enabling WhatsApp button"
+msgstr ""
+"Requerir la selección de variaciones de producto antes de habilitar el botón "
+"de WhatsApp"
+
+#: lite-contact-button-for-woocommerce.php:31
+msgid "Settings"
+msgstr "Ajustes"
+
+#: admin/settings-page.php:137
+msgid "Show on:"
+msgstr "Mostrar en:"
+
+#: modules/floating-button.php:40
+msgid "WhatsApp button"
+msgstr "Botón de Whatsapp"
+
+#: admin/settings-page.php:6 admin/settings-page.php:7
+msgid "WhatsApp Buttons"
+msgstr "Botones de WhatsApp"
+
+#. Name of the plugin
+#: admin/settings-page.php:48
+msgid "Lite Button for WooCommerce"
+msgstr ""
+"Botón Lite de WhatsApp para WooCommerce\n"
+
+#: admin/settings-page.php:57 admin/settings-page.php:86
+msgid "WhatsApp Number"
+msgstr "Número de Whatsapp"
+
+#: admin/settings-page.php:52
+msgid "WooCommerce Single Product Button"
+msgstr "Botón para Producto de WooCommerce"

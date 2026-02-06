@@ -1,9 +1,31 @@
-#lw-wp-wc-btn.disabled {
-    pointer-events: none;
-    opacity: 0.6;
+.wlbw-wc-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed !important;
 }
 
-#lw-wp-wc-btn{
-    background: #25D366;
-    color: white;
+.wlbw-wc-btn {
+    background: #25D366 !important;
+    color: white !important;
+    display: inline-flex !important;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.wlbw-wc-btn::before {
+    content: '';
+    display: inline-flex;
+    align-items: center;
+    width: 1.2em;
+    height: 1.2em;
+    background: url('../img/icon.svg') no-repeat center center;
+    background-size: contain;
+}
+
+.wlbw-wc-button-container {
+    clear: both;
+    margin-bottom: 1em;
+}
+
+.wlbw-wc-button-container a {
+    float: none !important;
 }

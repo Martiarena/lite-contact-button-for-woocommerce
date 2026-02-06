@@ -1,7 +1,8 @@
-.lw-wp-floating-btn {
+.wlbw-floating-btn {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: var(--wlbw-bottom-offset, 3%);
+    right: var(--wlbw-right-offset, 1.25em);
+    left: var(--wlbw-left-offset, auto);
     background: #25D366;
     color: white;
     border-radius: 50%;
@@ -15,12 +16,20 @@
     text-align: center;
     align-items: center;
     justify-content: center;
+    z-index: 9999;
 }
 
-.lw-wp-floating-btn:hover {
+.wlbw-floating-btn:hover {
     transform: scale(1.1);
     background: #20b358;
+}
 
+.wlbw-floating-btn img {
+    height: auto;
+    width: 100%;
+    max-width: 100%;
+    padding: 0.75em;
+    box-sizing: border-box;
 }
 .pulse-anim {
     animation-name: elementor-animation-pulse;
