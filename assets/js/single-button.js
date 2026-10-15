@@ -31,9 +31,9 @@
                 var message = $btn.data('message');
                 var productName = $btn.data('product-name');
 
-                var fullMessage = message + ' ' + productName;
+                var fullMessage = message + ' *' + productName + '*';
                 if (selectedVariation) {
-                    fullMessage += ' (' + selectedVariation + ')';
+                    fullMessage += ' *(' + selectedVariation + ')*';
                 }
 
                 $btn.attr('href', baseUrl + encodeURIComponent(fullMessage));
@@ -59,7 +59,7 @@
                     .prop('disabled', true);
             } else {
                 $btn
-                    .attr('href', baseUrl + encodeURIComponent(message + ' ' + productName))
+                    .attr('href', baseUrl + encodeURIComponent(message + ' *' + productName + '*'))
                     .removeClass('disabled')
                     .prop('disabled', false);
             }

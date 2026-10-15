@@ -29,24 +29,48 @@ add_action( 'wp_enqueue_scripts', function() {
     }
 });
 
-add_action( 'woocommerce_before_add_to_cart_quantity', function() {
+/**
+ * Detecta si la ficha actual está construida con Elementor, directamente
+ * en el producto o mediante una plantilla Single Product de Theme Builder.
+ */
+function wlbw_product_uses_elementor_template() {
+    if ( ! did_action( 'elementor/loaded' ) || ! is_product() ) {
+        return false;
+    }
 
-    $post = get_post();
-
-    $has_shortcode = $post && has_shortcode( $post->post_content, 'wlbw_wc_button' );
-
-    $uses_elementor = false;
-
-    if ( did_action( 'elementor/loaded' ) ) {
-        $document = \Elementor\Plugin::$instance->documents->get( get_the_ID() );
+    $product_id = get_queried_object_id();
+    if ( $product_id && isset( \Elementor\Plugin::$instance->documents ) ) {
+        $document = \Elementor\Plugin::$instance->documents->get( $product_id );
         if ( $document && $document->is_built_with_elementor() ) {
-            $uses_elementor = true;
+            return true;
         }
     }
 
-    // Si hay shortcode en contenido o usa Elementor → no auto insertar
-    if ( $has_shortcode || $uses_elementor ) return;
+    // Elementor Pro Theme Builder: devuelve las plantillas Single que aplican
+    // a la consulta actual, incluidas las plantillas de producto.
+    if ( class_exists( '\\ElementorPro\\Modules\\ThemeBuilder\\Module' ) ) {
+        $theme_builder = \ElementorPro\Modules\ThemeBuilder\Module::instance();
+        $conditions_manager = $theme_builder->get_conditions_manager();
 
+        if ( $conditions_manager && $conditions_manager->get_documents_for_location( 'single' ) ) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+add_action( 'woocommerce_before_add_to_cart_quantity', function() {
+    if ( ! is_product() ) {
+        return;
+    }
+
+    $settings = get_option( 'wlbw_settings', array() );
+    if ( empty( $settings['enable_wc_single'] ) || wlbw_product_uses_elementor_template() ) {
+        return;
+    }
+
+    echo do_shortcode( '[wlbw_wc_button]' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 });
 
 
@@ -68,7 +92,7 @@ add_shortcode( 'wlbw_wc_button', function() {
     $product_name = wp_strip_all_tags( $product->get_name() );
     
     // Construimos la URL inicial (sin variación aún)
-    $wa_url = "https://wa.me/{$number}?text=" . rawurlencode("{$message} {$product_name}");
+    $wa_url = "https://wa.me/{$number}?text=" . rawurlencode("{$message} *{$product_name}*");
 
     ob_start();
 
