@@ -31,14 +31,26 @@ add_action( 'wp_enqueue_scripts', function() {
 
 add_action( 'woocommerce_before_add_to_cart_quantity', function() {
 
-    if ( ! is_product() ) return;
+    $post = get_post();
 
-    // Evitar duplicado si usan shortcode (Elementor)
-    if ( has_shortcode( get_post()->post_content ?? '', 'wlbw_wc_button' ) ) return;
+    $has_shortcode = $post && has_shortcode( $post->post_content, 'wlbw_wc_button' );
 
-    echo do_shortcode( '[wlbw_wc_button]' );
+    $uses_elementor = false;
+
+    if ( did_action( 'elementor/loaded' ) ) {
+        $document = \Elementor\Plugin::$instance->documents->get( get_the_ID() );
+        if ( $document && $document->is_built_with_elementor() ) {
+            $uses_elementor = true;
+        }
+    }
+
+    // Si hay shortcode en contenido o usa Elementor → no auto insertar
+    if ( $has_shortcode || $uses_elementor ) return;
 
 });
+
+
+
 
 add_shortcode( 'wlbw_wc_button', function() {
     global $product;
@@ -48,7 +60,11 @@ add_shortcode( 'wlbw_wc_button', function() {
     $number = isset( $settings['wc_number'] ) ? sanitize_text_field( $settings['wc_number'] ) : '';
     if ( empty( $number ) ) return '';
     $message = isset( $settings['wc_message'] ) ? sanitize_text_field( $settings['wc_message'] ) : __( 'Hello, I am interested in this product:', 'lite-contact-button-for-woocommerce' );
-    $button_text = get_option('wlbw_wc_button_text',__( 'Ask via WhatsApp', 'lite-contact-button-for-woocommerce' ));
+    $button_text = get_option('wlbw_wc_button_text', __( 'Ask via WhatsApp', 'lite-contact-button-for-woocommerce' ));
+    if ( function_exists( 'pll__' ) ) {
+        $message = pll__( $message );
+        $button_text = pll__( $button_text );
+    }
     $product_name = wp_strip_all_tags( $product->get_name() );
     
     // Construimos la URL inicial (sin variación aún)

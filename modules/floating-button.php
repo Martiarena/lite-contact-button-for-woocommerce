@@ -24,6 +24,10 @@ add_action( 'wp_footer', function() {
 
     $number = sanitize_text_field( $settings['floating_number'] );
     $message = sanitize_text_field( $settings['floating_message'] ?? '' );
+
+    if ( function_exists( 'pll__' ) ) {
+        $message = pll__( $message );
+    }
     
     $url = 'https://wa.me/' . $number . '?text=' . rawurlencode( $message );
 

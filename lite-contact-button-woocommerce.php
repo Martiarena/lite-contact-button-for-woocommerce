@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Lite Button for WooCommerce
-Plugin URI: https://raulmartiarena.com
+Plugin URI: https://github.com/Martiarena/lite-contact-button-for-woocommerce
 Description: Lightweight WhatsApp buttons for WooCommerce products and WordPress pages. Modular, fast, and without unnecessary code.
 Version: 1.0.0
 Author: Raúl Martiarena
@@ -30,6 +30,30 @@ add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), function( $lin
 
 // Incluir página de configuración
 require_once WLBW_DIR . 'admin/settings-page.php';
+
+// Registrar los textos configurados para que Polylang los muestre en Traducciones.
+add_action( 'init', function() {
+    if ( ! function_exists( 'pll_register_string' ) ) {
+        return;
+    }
+
+    $settings = get_option( 'wlbw_settings', array() );
+    $strings = array(
+        'Mensaje del botón flotante' => $settings['floating_message'] ?? '',
+        'Mensaje del botón de producto' => $settings['wc_message'] ?? '',
+        'Texto del botón de producto' => get_option(
+            'wlbw_wc_button_text',
+            __( 'Ask via WhatsApp', 'lite-contact-button-for-woocommerce' )
+        ),
+    );
+
+    foreach ( $strings as $name => $string ) {
+        $string = trim( (string) $string );
+        if ( '' !== $string ) {
+            pll_register_string( $name, $string, 'Lite Button for WooCommerce' );
+        }
+    }
+});
 
 // Cargar módulos según ajustes
 $wlbw_options = get_option( 'wlbw_settings', array() );
