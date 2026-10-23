@@ -60,7 +60,9 @@ function wlbw_product_uses_elementor_template() {
     return false;
 }
 
-add_action( 'woocommerce_before_add_to_cart_quantity', function() {
+// Prioridad 29: se muestra en el resumen, justo antes del formulario de compra
+// (prioridad 30), y sigue apareciendo aunque el producto no sea comprable.
+add_action( 'woocommerce_single_product_summary', function() {
     if ( ! is_product() ) {
         return;
     }
@@ -71,7 +73,7 @@ add_action( 'woocommerce_before_add_to_cart_quantity', function() {
     }
 
     echo do_shortcode( '[wlbw_wc_button]' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-});
+}, 31 );
 
 
 
@@ -98,6 +100,15 @@ add_shortcode( 'wlbw_wc_button', function() {
 
     $is_variable = $product->is_type( 'variable' );
     $require_variation = ! empty( $settings['require_variation'] );
+
+    $attribute_labels = array();
+    if ( $is_variable ) {
+        foreach ( array_keys( $product->get_variation_attributes() ) as $attribute_key ) {
+            $attribute_name = preg_replace( '/^attribute_/', '', $attribute_key );
+            $attribute_labels[ $attribute_key ] = wc_attribute_label( $attribute_name, $product );
+        }
+    }
+
     $initial_href = ( $is_variable && $require_variation ) ? '#' : esc_url( $wa_url );
     $disabled_class = ( $is_variable && $require_variation ) ? ' disabled' : '';
 
@@ -108,7 +119,8 @@ add_shortcode( 'wlbw_wc_button', function() {
             class="wlbw-wc-btn button<?php echo esc_attr( $disabled_class ); ?>"
             data-base-url="<?php echo esc_url( "https://wa.me/{$number}?text=" ); ?>"
             data-message="<?php echo esc_attr( $message ); ?>"
-            data-product-name="<?php echo esc_attr( $product_name ); ?>">
+            data-product-name="<?php echo esc_attr( $product_name ); ?>"
+            data-attribute-labels="<?php echo esc_attr( wp_json_encode( $attribute_labels ) ); ?>">
             <?php echo esc_html( $button_text ); ?>
         </a>
     </div>

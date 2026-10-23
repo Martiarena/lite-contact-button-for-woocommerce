@@ -14,14 +14,18 @@
         $('form.variations_form').on('show_variation', function(event, variation){
             if (variation && variation.attributes && !hasEmptyAttributes()) {
                 var selectedVariation = [];
+                var attributeLabels = $btn.data('attribute-labels') || {};
 
                 $('form.variations_form select').each(function () {
                     var $select = $(this);
                     var value = $select.val();
 
                     if (value) {
-                        var label = $select.find('option:selected').text();
-                        selectedVariation.push(label);
+                        var attributeKey = $select.attr('name');
+                        var attributeLabel = attributeLabels[attributeKey] || attributeKey;
+                        attributeLabel = attributeLabel.replace(/^attribute_/, '').replace(/^pa_/, '').replace(/[-_]/g, ' ');
+                        var selectedValue = $select.find('option:selected').text();
+                        selectedVariation.push(attributeLabel + ': ' + selectedValue);
                     }
                 });
 
@@ -33,7 +37,7 @@
 
                 var fullMessage = message + ' *' + productName + '*';
                 if (selectedVariation) {
-                    fullMessage += ' *(' + selectedVariation + ')*';
+                    fullMessage += ' (' + selectedVariation + ')';
                 }
 
                 $btn.attr('href', baseUrl + encodeURIComponent(fullMessage));

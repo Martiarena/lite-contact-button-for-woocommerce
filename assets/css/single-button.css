@@ -28,4 +28,5 @@
 
 .wlbw-wc-button-container a {
     float: none !important;
+    border: none;
 }
